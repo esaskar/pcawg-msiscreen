@@ -1,0 +1,3 @@
+#!/bin/bash
+
+parallel --results output -j 14 -- <configuration/msisensor_cmds 
