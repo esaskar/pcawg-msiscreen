@@ -18,7 +18,7 @@ def locate(bamfn):
             return None
     return bam_path
 
-def pair_tumor_normals(pcawg, of):
+def pair_tumor_normal(pcawg, of):
     p = pcawg[['normal_wgs_aliquot_id',
                'normal_wgs_bwa_alignment_gnos_id',
                'normal_wgs_bwa_alignment_bam_file_name',
@@ -61,4 +61,4 @@ if __name__ == '__main__':
     p.add_argument('-o', '--output', help = 'A list of tumor-normal pairs to output')
     args = p.parse_args()
     pcawg = pd.read_csv(args.input, sep = '\t')
-    pair_tumor_normals(pcawg, open(args.output, 'w'))
+    pair_tumor_normal(pcawg, open(args.output, 'w'))

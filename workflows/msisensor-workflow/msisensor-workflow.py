@@ -15,8 +15,9 @@ def run_msisensor(**kwargs):
     logger.debug("Config - {}".format(config))
 
     sample = get_sample(kwargs)
-    sample_id = sample["sample_id"]
-    sample_location = sample["sample_location"]
+    sample_id = sample["tumor_wgs_aliquot_id"]
+    tumor_location = sample["tumor_bam_path"]
+    normal_location = sample["normal_bam_path"]
 
     result_path_prefix = config["results_local_path"] + "/" + sample_id
     if (not os.path.isdir(result_path_prefix)):
@@ -35,7 +36,7 @@ def run_msisensor(**kwargs):
 
     msisensor_cmd = "{path} -d {ref} -n {normal} -t {tumor} -o {output} -b {threads} {flags}".\
         format(path = msisensor_path, ref = microsatellites_ref,
-               normal = normal_bam, tumor = tumor_bam, output = result_filename_base,
+               normal = normal_location, tumor = tumor_location, output = result_filename_base,
                threads = n_threads, flags = msisensor_flags)
 
     call_command(msisensor_cmd, "msisensor")
