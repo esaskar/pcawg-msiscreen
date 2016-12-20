@@ -15,6 +15,10 @@ def generate_config(paired_info_fn, out_dir):
                 'tumor_wgs_aliquot_id', 'tumor_bam_path'])
     pairs = pairs.loc[pairs['Status'] == 'Success'][['normal_bam_path', \
         'tumor_wgs_aliquot_id', 'tumor_bam_path']]
+    try:
+        os.makedirs(out_dir)
+    except:
+        pass
     for d in pairs.to_dict(orient = 'records'):
         with open("{}/{}.json".format(out_dir, d['tumor_wgs_aliquot_id']), 'w') as o:
             o.write(json.dumps({"sample" : d}))
